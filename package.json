@@ -1,0 +1,27 @@
+{
+  "name": "@markonis/api",
+  "version": "0.1.3",
+  "description": "A simple kit to build an opinionated api",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Marko Pavlovic",
+  "license": "MIT",
+  "dependencies": {
+    "@markonis/bundle": "0.0.1",
+    "@markonis/options": "0.0.1",
+    "ajv": "^4.11.4",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.2.0"
+  }
+}
