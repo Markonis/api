@@ -13,16 +13,6 @@ describe('ApiController', function() {
     });
   });
 
-  describe('startChain(bundle)', function() {
-    it('wraps the bundle into a promise', function(done) {
-      var bundle = this.bundle;
-      this.controller.startChain(bundle).then(function(result) {
-        expect(result).to.eql(bundle);
-        done();
-      });
-    });
-  });
-
   describe('executeEndpoint(bundle)', function() {
     it('invokes endpoint.execute(bundle)', function() {
       var bundle = this.bundle;
@@ -37,12 +27,6 @@ describe('ApiController', function() {
 
       this.controller.executeEndpoint(bundle);
       expect(executed).to.be(true);
-    });
-
-    it('just returns bundle if status is > 400', function() {
-      this.bundle.updatePart('status', 'status', 422);
-      var result = this.controller.executeEndpoint(this.bundle);
-      expect(result).to.eql(this.bundle);
     });
   });
 
