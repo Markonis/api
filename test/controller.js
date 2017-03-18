@@ -13,6 +13,40 @@ describe('ApiController', function() {
     });
   });
 
+  describe('acceptFile(req, res)', function() {
+    it('adds file and files to bundle', function(done) {
+      this.controller.getMulterAccept = function() {
+        return function(req, res, callback) {
+          req.file = 'test-file';
+          req.files = 'test-files';
+          callback(null);
+        };
+      };
+
+      var handler = this.controller.acceptFile({}, {});
+      handler(this.bundle).then(function(bundle) {
+        expect(bundle.getPartData('file')).to.eql('test-file');
+        expect(bundle.getPartData('files')).to.eql('test-files');
+        done();
+      });
+    });
+
+    it('sets the status to 500 if there is a multer error', function(done) {
+      this.controller.getMulterAccept = function() {
+        return function(req, res, callback) {
+          callback('test-error');
+        };
+      };
+
+      var handler = this.controller.acceptFile({}, {});
+      handler(this.bundle).then(function(bundle) {
+        expect(bundle.getPartData('status')).to.be(500);
+        expect(bundle.getPartsData('devError')).to.eql(['Upload failed.']);
+        done();
+      });
+    });
+  });
+
   describe('executeEndpoint(bundle)', function() {
     it('invokes endpoint.execute(bundle)', function() {
       var bundle = this.bundle;
