@@ -14,10 +14,9 @@ describe('ApiController', function() {
   });
 
   describe('acceptFile(req, res)', function() {
-    it('adds file and files to bundle', function(done) {
+    it('adds files to bundle', function(done) {
       this.controller.getMulterAccept = function() {
         return function(req, res, callback) {
-          req.file = 'test-file';
           req.files = 'test-files';
           callback(null);
         };
@@ -25,7 +24,6 @@ describe('ApiController', function() {
 
       var handler = this.controller.acceptFile({}, {});
       handler(this.bundle).then(function(bundle) {
-        expect(bundle.getPartData('file')).to.eql('test-file');
         expect(bundle.getPartData('files')).to.eql('test-files');
         done();
       });
